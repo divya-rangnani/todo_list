@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todo/ui/personal_list.dart';
 import 'package:flutter_todo/utils/PageViewModel.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -25,4 +24,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

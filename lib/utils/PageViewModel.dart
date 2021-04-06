@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class PageViewModel extends StatelessWidget{
-
+class PageViewModel extends StatelessWidget {
   //PageViewModel();
 
   @override
@@ -13,8 +12,11 @@ class PageViewModel extends StatelessWidget{
             text: 'Welcome to ',
             style: DefaultTextStyle.of(context).style,
             children: <TextSpan>[
-              TextSpan(text: 'Clear', style: TextStyle(fontWeight: FontWeight.bold)),
-              TextSpan(text: '\nTap or Swipe', style: TextStyle(fontWeight: FontWeight.bold)),
+              TextSpan(
+                  text: 'Clear', style: TextStyle(fontWeight: FontWeight.bold)),
+              TextSpan(
+                  text: '\nTap or Swipe',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
               TextSpan(text: ' to begin.'),
             ],
           ),
@@ -22,6 +24,4 @@ class PageViewModel extends StatelessWidget{
       ],
     );
   }
-
-
 }
