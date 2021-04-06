@@ -10,12 +10,14 @@ class PersonalList extends StatefulWidget {
   }
 }
 
-List<Widget> _tempListWidget = [];
-List<Widget> _listWidget = [];
-int listLength = 8;
-int lastActionIndex;
 
 class PersonalListState extends State<PersonalList> {
+  List<Widget> _tempListWidget = [];
+  List<Widget> _listWidget = [];
+  int _listLength = 8;
+  int _lastActionIndex;
+  int _lastShakeIndex;
+
   @override
   void initState() {
     _manageList();
@@ -61,11 +63,14 @@ class PersonalListState extends State<PersonalList> {
       index = _tempListWidget.length;
     }
     return Container(
-        color: index < (listLength / 2)
-            ? Colors.red[(listLength - index) * 100]
-            : Colors.yellow[(listLength - index) * 100],
+        color: index < (_listLength / 2)
+            ? Colors.red[(_listLength - index) * 100]
+            : Colors.yellow[(_listLength - index) * 100],
         padding: EdgeInsets.all(24.0),
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         child: Text(
           text,
           style: TextStyle(color: Colors.white, fontSize: 16),
@@ -139,13 +144,18 @@ class PersonalListState extends State<PersonalList> {
             },
             child: _listTile(context, 'Try shaking to undo', 8))
       ]);
-      if (_listWidget.length < listLength) _listWidget = _tempListWidget;
+      _listWidget.addAll(_tempListWidget);
       ShakeDetector.autoStart(onPhoneShake: () {
-        if (lastActionIndex != null &&
-            _tempListWidget.length < _listWidget.length)
+        print('tempListLength ==> ${_tempListWidget
+            .length} listLength ==> ${_listWidget.length}');
+
+        if (_lastActionIndex != null &&
+            _tempListWidget.length < _listWidget.length &&
+            _lastActionIndex != _lastShakeIndex)
           setState(() {
-            _tempListWidget.add(_listWidget.elementAt(lastActionIndex));
+            _tempListWidget.add(_listWidget.elementAt(_lastActionIndex));
           });
+        _lastShakeIndex = _lastActionIndex;
       });
       setState(() {});
     });
@@ -155,13 +165,11 @@ class PersonalListState extends State<PersonalList> {
     switch (index) {
       case 0:
         {
-          setState(() {
-            _tempListWidget.add(_listWidget.elementAt(0));
-          });
+          _tempListWidget.add(_listWidget.elementAt(0));
         }
     }
     setState(() {
-      lastActionIndex = index;
+      _lastActionIndex = index;
       _tempListWidget.remove(_tempListWidget.elementAt(index));
     });
   }
