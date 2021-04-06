@@ -1,4 +1,0 @@
-#Tue Apr 06 16:49:29 IST 2021
-base.0=/Users/palakpatel/Documents/Divya/todo/flutter_todo/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

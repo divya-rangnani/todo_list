@@ -110,7 +110,7 @@ class _IntroSliderState extends State<IntroSlider> {
           height = 50;
         }
       }
-      if (_pageController.page > 3) {
+      if (_pageController.page == 3) {
         Navigator.pushReplacement(context,
             new MaterialPageRoute(builder: (context) => PersonalList()));
       }
