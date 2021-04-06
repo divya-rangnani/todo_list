@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo/ui/personal_list.dart';
-import 'package:flutter_todo/utils/PageViewModel.dart';
+import 'package:flutter_todo/ui/intro_slider.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
         }),
       ),
-      home: PersonalList(),
+      home: IntroSlider(),
     );
   }
 }

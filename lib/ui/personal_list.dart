@@ -10,7 +10,6 @@ class PersonalList extends StatefulWidget {
   }
 }
 
-
 class PersonalListState extends State<PersonalList> {
   List<Widget> _tempListWidget = [];
   List<Widget> _listWidget = [];
@@ -35,7 +34,10 @@ class PersonalListState extends State<PersonalList> {
               padding: EdgeInsets.all(16.0),
               child: Text(
                 'Personal List',
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600),
               ),
             ),
             Expanded(
@@ -67,13 +69,11 @@ class PersonalListState extends State<PersonalList> {
             ? Colors.red[(_listLength - index) * 100]
             : Colors.yellow[(_listLength - index) * 100],
         padding: EdgeInsets.all(24.0),
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
+        width: MediaQuery.of(context).size.width,
         child: Text(
           text,
-          style: TextStyle(color: Colors.white, fontSize: 16),
+          style: TextStyle(
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
         ));
   }
 
@@ -81,12 +81,22 @@ class PersonalListState extends State<PersonalList> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _tempListWidget.addAll([
         Dismissible(
-            direction: DismissDirection.startToEnd,
-            key: ObjectKey('1'),
-            onDismissed: (direction) {
-              performListAction(0);
-            },
-            child: _listTile(context, 'Swipe to the right to complete!', 1)),
+          direction: DismissDirection.startToEnd,
+          key: ObjectKey('1'),
+          onDismissed: (direction) {
+            performListAction(0);
+          },
+          child: _listTile(context, 'Swipe to the right to complete!', 1),
+          background: Container(
+            padding: EdgeInsets.all(8.0),
+            alignment: Alignment.centerLeft,
+            child: Icon(
+              Icons.done,
+              color: Colors.white,
+              size: 28,
+            ),
+          ),
+        ),
         Dismissible(
             direction: DismissDirection.startToEnd,
             key: ObjectKey('2'),
@@ -146,8 +156,8 @@ class PersonalListState extends State<PersonalList> {
       ]);
       _listWidget.addAll(_tempListWidget);
       ShakeDetector.autoStart(onPhoneShake: () {
-        print('tempListLength ==> ${_tempListWidget
-            .length} listLength ==> ${_listWidget.length}');
+        print(
+            'tempListLength ==> ${_tempListWidget.length} listLength ==> ${_listWidget.length}');
 
         if (_lastActionIndex != null &&
             _tempListWidget.length < _listWidget.length &&
