@@ -8,15 +8,26 @@ class IntroSlider extends StatefulWidget {
   _IntroSliderState createState() => _IntroSliderState();
 }
 
-class _IntroSliderState extends State<IntroSlider> {
+class _IntroSliderState extends State<IntroSlider>
+    with TickerProviderStateMixin {
   double height = 0;
   PageController _pageController = new PageController(initialPage: 0);
-  PageController _bottomPageController = new PageController(initialPage: 0);
   double currentPage = 0.0;
+  AnimationController _controller;
+  Animation<double> _animation;
 
   @override
   void initState() {
     _managePageController();
+    _controller = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 180),
+    );
+
+    _animation = new CurvedAnimation(
+      parent: _controller,
+      curve: new Interval(0.0, 1.0, curve: Curves.linear),
+    );
     super.initState();
   }
 
@@ -31,13 +42,13 @@ class _IntroSliderState extends State<IntroSlider> {
               controller: _pageController,
               children: [
                 //screen 1
-                IntroScreenOne(_pageController),
+                introScreenOne(_pageController),
                 //screen 2
-                IntroScreenTwo(context),
+                introScreenTwo(context),
                 //screen 3
-                IntroScreenThree(context),
+                introScreenThree(context),
                 //Screen 4
-                IntroScreenFour()
+                introScreenFour()
               ],
             ),
           ),
@@ -45,10 +56,7 @@ class _IntroSliderState extends State<IntroSlider> {
             alignment: Alignment.bottomCenter,
             child: Container(
               height: height,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
+              width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
                   Expanded(
@@ -58,28 +66,18 @@ class _IntroSliderState extends State<IntroSlider> {
                       position: currentPage,
                     ),
                   ),
-                  currentPage == 0 || currentPage >= 3
-                      ? Container()
-                      : Expanded(
-                    flex: 8,
-                    child: PageView(
-                      controller: _bottomPageController,
-                      children: [
-                        Container(
-                          color: Colors.red,
-                        ),
-                        Container(
-                          color: Colors.green,
-                        ),
-                        Container(
-                          color: Colors.black,
-                        ),
-                        Container(
-                          color: Colors.blue,
-                        ),
-                      ],
-                    ),
-                  )
+                  currentPage == 1
+                      ? AnimatedBuilder(
+                          animation: _animation,
+                          builder: (BuildContext context, Widget child) {
+                            return Expanded(
+                              flex: 8,
+                              child: Container(
+                                child: Image.asset('assets/mobile_screen.png'),
+                              ),
+                            );
+                          })
+                      : Container()
                 ],
               ),
             ),
@@ -94,23 +92,18 @@ class _IntroSliderState extends State<IntroSlider> {
       setState(() {
         currentPage = _pageController.page;
       });
-      if (_pageController.page == 2.0 && height == 50) {
+      if (_pageController.page == 2.0) {
+
+        setState(() {
+          height = _pageController.position.pixels / 2;
+        });
+        _controller.forward(from: 0.0);
+      }else{
         setState(() {
           height = 0.0;
         });
-        height = _pageController.position.pixels / 2;
       }
-      if (_pageController.page <= 1.0 && _pageController.page <= 3) {
-        setState(() {
-          height = 0.0;
-        });
-        height = _pageController.position.pixels;
-      } else {
-        if (_pageController.page != 0.0 && _pageController.page >= 3.0) {
-          height = 50;
-        }
-      }
-      if (_pageController.page == 3) {
+      if (_pageController.page > 2) {
         Navigator.pushReplacement(context,
             new MaterialPageRoute(builder: (context) => PersonalList()));
       }

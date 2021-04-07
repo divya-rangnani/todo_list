@@ -13,7 +13,7 @@ void showSnackBar(BuildContext context, String text) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
 }
 
-Widget IntroScreenOne(PageController _pageController) {
+Widget introScreenOne(PageController _pageController) {
   return GestureDetector(
     onTap: () {
       _pageController.animateToPage(
@@ -90,7 +90,7 @@ Widget IntroScreenOne(PageController _pageController) {
   );
 }
 
-Widget IntroScreenTwo(BuildContext context) {
+Widget introScreenTwo(BuildContext context) {
   return Column(
     children: [
       Expanded(
@@ -148,7 +148,7 @@ Widget IntroScreenTwo(BuildContext context) {
   );
 }
 
-Widget IntroScreenThree(BuildContext context) {
+Widget introScreenThree(BuildContext context) {
   return Column(
     children: [
       Expanded(
@@ -193,7 +193,7 @@ Widget IntroScreenThree(BuildContext context) {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Drag it p or down to change its',
+                            text: 'Drag it up or down to change its',
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.black,
@@ -221,7 +221,7 @@ Widget IntroScreenThree(BuildContext context) {
   );
 }
 
-Widget IntroScreenFour() {
+Widget introScreenFour() {
   return Container(
     color: Colors.green,
   );
